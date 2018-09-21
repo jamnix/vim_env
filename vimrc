@@ -3,13 +3,9 @@
 " Gotta be first
 set nocompatible
 
+set t_Co=256
+
 filetype  off
-
-set tabstop=4
-set shiftwidth=4
-
-set enc=utf8
-set fencs=utf8,gbk,gb2312,gb18030,cp936
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -72,6 +68,10 @@ Plugin 'honza/vim-snippets'
 "-------------------------------------------------------------------------
 Plugin 'fatih/vim-go'
 
+"-------------------------------------------------------------------------
+"switching between companion files
+Plugin 'jlanzarotta/bufexplorer'
+
 call vundle#end()
 
 filetype plugin indent on
@@ -79,14 +79,40 @@ filetype plugin indent on
 " --- General settings ---
 set backspace=indent,eol,start
 set ruler
-set number
+"set number
 set showcmd
 set incsearch
 set hlsearch
 
 syntax on
+set autoindent
+set cindent
+set cursorline
+"syntax enable
 "远程登陆时关闭,否则不支持鼠标复制粘贴
 "set mouse=a
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+set enc=utf8
+set fencs=utf8,gbk,gb2312,gb18030,cp936
+
+" -------derekwyatt/vim-fswitch------------
+" *.cpp 和 *.h 间切换
+nmap <silent> <Leader>sw :AS<cr>
+
+" ------------system clipboard -----------
+set clipboard=unnamed
+"nmap <Leader>y "*y"<cr>
+"vmap <Leader>y "*y"<cr>
+"nmap <Leader>p "*p"<cr>
+
+" -------bufExplorer-----------------------
+"let g:bufExplorerDefaultHelp=0       " Do not show default help.
+"let g:bufExplorerShowRelativePath=1  " Show relative paths.
+"let g:bufExplorerSortBy='mru'        " Sort by most recently used.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 "           YouCompleteMe:
@@ -107,7 +133,7 @@ let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_min_num_of_chars_for_completion=1
 "let g:ycm_collect_identifiers_from_comments_and_strings = 1
-
+"
 "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"    "回车即选中当前项"
 nnoremap <F4> :YcmDiags<CR>
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
@@ -117,7 +143,7 @@ nnoremap <leader>ycmp :YcmCompleter GetParent<CR>
 nnoremap <leader>ycmd :YcmCompleter GetDoc<CR>
 nnoremap <leader>ycmf :YcmCompleter FixIt<CR>
 
-"
+""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " ----- Plugin-Specific Settings --------------------------------------
@@ -126,6 +152,7 @@ let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 :nmap <silent> <leader>i <Plugin>IndentGuidesToggle<CR>
+
 " ------ UltiSnips Settings -------------------
 let g:UltiSnipsSnippetDirectories=['UltiSnips']
 let g:UltiSnipsSnippetDir="~/.vim/UltiSnips"
@@ -136,13 +163,14 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-z>"
 
 " ----- altercation/vim-colors-solarized settings -----
 " Toggle this to "light" for light colorscheme
-set background=dark
+"set background=dark
 
 " Uncomment the next line if your terminal is not configured for solarized
-let g:solarized_termcolors=256
+"let g:solarized_termcolors=256
 
 " Set the colorscheme
-colorscheme solarized
+"colorscheme solarized
+colorscheme molokai
 
 
 " ----- bling/vim-airline settings -----
@@ -166,9 +194,10 @@ let g:airline#extensions#tabline#enabled = 1
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
 " nmap <silent> <leader>\t :NERDTreeTabsToggle<CR>
-nmap <C-t> :NERDTreeTabsToggle<CR>
+"nmap <C-t> :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
-let g:nerdtree_tabs_open_on_console_startup = 0
+let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_autofind = 1
 
 
 " ----- scrooloose/syntastic settings -----
@@ -188,7 +217,8 @@ augroup END
 
 " ----- xolox/vim-easytags settings -----
 " Where to look for tags files
-set tags=~/.tags;,~/.vimtags
+"set tags=~/.tags;,~/.vimtags
+set tags=tags;
 " Sensible defaults
 let g:easytags_events = ['BufReadPost', 'BufWritePost']
 let g:easytags_async = 1
@@ -198,7 +228,7 @@ let g:easytags_suppress_ctags_warning = 1
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with \b
-nmap <C-b> :TagbarToggle<CR>
+nmap <C-n> :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 
@@ -220,7 +250,8 @@ augroup mydelimitMate
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
-let g:molokai_original = 1
+"let g:molokai_original = 1
+"let g:rehash256 = 0 
 
 nmap <F11> :!cd build && make<CR>
 au FileType go nmap <leader>r <Plug>(go-run)
@@ -239,3 +270,31 @@ au FileType go nmap <leader>e <Plug>(go-rename)
 au FileType go nmap <leader>rt <Plug>(go-run-tab)
 au FileType go nmap <leader>rs <Plug>(go-run-split)
 au FileType go nmap <leader>rv <Plug>(go-run-vertical)
+
+
+
+nmap <leader>v :vs <C-R>=expand("<cfile>")<CR><CR>
+nmap <leader>p :echo expand('%:p')<CR>
+
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! g'\"" | endif
+
+""if filereadable("cscope.out")
+""set cscopequickfix=s-,c-,d-,i-,t-,e-,g-
+""cs add cscope.out
+"nmap <leader>f :e cscope.files<CR>
+"nmap <leader>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+"nmap <leader>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+"nmap <leader>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+"nmap <leader>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+"nmap <leader>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+""nmap <leader>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+"nmap <leader>i :scs find i <C-R>=expand("<cfile>")<CR><CR>
+"nmap <leader>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+
+"nmap <leader>co :copen<CR>
+"nmap <leader>cc :cclose<CR>
+"
+
+"let mapleader = "\<Space>"
+
+map <leader>h <F1>

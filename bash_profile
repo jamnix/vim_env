@@ -1,15 +1,48 @@
-export GOROOT=/usr/local/go
-export GOPATH=/data/home/harleyhuang/going_proj/trunk
-export GOINGPATH=/data/home/harleyhuang/going_proj/trunk
-export GOBIN=/data/home/harleyhuang/going_proj/trunk/bin
-export PATH=/data/home/harleyhuang/going_proj/trunk/bin:/usr/local/go/bin:/data/home/harleyhuang/going_proj/trunk/tools/FlameGraph:/data/home/harleyhuang/bin:$PATH
-alias auto_go='/data/home/harleyhuang/going_proj/trunk/tools/attr/attr_go.py'
-alias vi='/data/home/harleyhuang/bin/bin/vim'
-alias vim='/data/home/harleyhuang/bin/bin/vim'
+# Sample .bashrc for SuSE Linux
+# Copyright (c) SuSE GmbH Nuernberg
+
+# There are 3 different types of shells in bash: the login shell, normal shell
+# and interactive shell. Login shells read ~/.profile and interactive shells
+# read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
+# settings made here will also take effect in a login shell.
+#
+# NOTE: It is recommended to make language settings in ~/.profile rather than
+# here, since multilingual X sessions would not work properly if LANG is over-
+# ridden in every subshell.
+
+# Some applications read the EDITOR variable to determine your favourite text
+# editor. So uncomment the line below and enter the editor of your choice :-)
+#export EDITOR=/usr/bin/vim
+#export EDITOR=/usr/bin/mcedit
+
+# For some news readers it makes sense to specify the NEWSSERVER variable here
+#export NEWSSERVER=your.news.server
+
+# If you want to use a Palm device with Linux, uncomment the two lines below.
+# For some (older) Palm Pilots, you might need to set a lower baud rate
+# e.g. 57600 or 38400; lowest is 9600 (very slow!)
+#
+#export PILOTPORT=/dev/pilot
+#export PILOTRATE=115200
+
+test -s ~/.alias && . ~/.alias || true
+#export PATH=/data/home/pandahe/local/ccache/bin:/data/home/harleyhuang:$PATH
+export GOROOT=/data/home/harleyhuang/go
+export GOPATH=/data/home/harleyhuang/tencent_project/go_proj
+export PATH=/data/home/harleyhuang:/data/home/harleyhuang/bin/bin:$GOROOT/bin:$GOPATH/bin:$PATH
+#alias vi="/data/home/harleyhuang/vim74/src/vim"
+alias vi="/data/home/harleyhuang/bin/bin/vim"
+alias svnst='/usr/local/bin/svn st|grep -E "\.(h|cpp|c|s|a|jce)$"|grep -v "application/protocol/"'
 
 
-export PS1='[\u@\h `pwd`]$ ' 
+export PATH_QZONE_MOBILE_FRAMEWORK_PRJ="/data/home/harleyhuang/tencent_project/wns_proj/trunk"
 
-export LANG=zh_CN.UTF-8
-export LC_ALL=zh_CN.UTF-8
 export TERM=xterm-256color
+CLICOLOR=1
+LSCOLORS=gxfxcxdxegedabagacad
+alias ll='ls -l --color'
+alias ls='ls --color'
+alias grep='grep --color'
+
+
+

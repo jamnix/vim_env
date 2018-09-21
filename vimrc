@@ -19,11 +19,11 @@ Plugin 'bling/vim-airline'
 
 " ----- Vim as a programmer's text editor -----------------------------
 Plugin 'scrooloose/nerdtree'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+"Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
@@ -63,10 +63,10 @@ Plugin 'kchmck/vim-coffee-script'
 "-------------------------------------------------------------------------
 "dragonwei add:
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'SirVer/ultisnips'
+"Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 "-------------------------------------------------------------------------
-Plugin 'fatih/vim-go'
+"Plugin 'fatih/vim-go'
 
 "-------------------------------------------------------------------------
 "switching between companion files
@@ -119,29 +119,29 @@ set clipboard=unnamed
 "
 "
 
-let g:ycm_complete_in_comments = 1
-let g:ycm_error_symbol = '>'
-let g:ycm_warning_symbol = '*'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_key_invoke_completion = '<C-n>'
-let g:ycm_key_detailed_diagnostics = '<leader>d'
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_min_num_of_chars_for_completion=1
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"let g:ycm_complete_in_comments = 1
+"let g:ycm_error_symbol = '>'
+"let g:ycm_warning_symbol = '*'
+"let g:ycm_confirm_extra_conf = 0
+"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+""let g:ycm_autoclose_preview_window_after_completion = 1
+""let g:ycm_autoclose_preview_window_after_insertion = 1
+""let g:ycm_key_invoke_completion = '<C-n>'
+"let g:ycm_key_detailed_diagnostics = '<leader>d'
+"let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
+"let g:ycm_seed_identifiers_with_syntax = 1
+"let g:ycm_min_num_of_chars_for_completion=1
+""let g:ycm_collect_identifiers_from_comments_and_strings = 1
 "
-"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"    "回车即选中当前项"
-nnoremap <F4> :YcmDiags<CR>
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-nnoremap <C-g> :YcmCompleter GoTo<CR>
-nnoremap <C-t> :YcmCompleter GetType<CR>
-nnoremap <leader>ycmp :YcmCompleter GetParent<CR>
-nnoremap <leader>ycmd :YcmCompleter GetDoc<CR>
-nnoremap <leader>ycmf :YcmCompleter FixIt<CR>
+""inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"    "回车即选中当前项"
+"nnoremap <F4> :YcmDiags<CR>
+"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+"nnoremap <C-g> :YcmCompleter GoTo<CR>
+"nnoremap <C-t> :YcmCompleter GetType<CR>
+"nnoremap <leader>ycmp :YcmCompleter GetParent<CR>
+"nnoremap <leader>ycmd :YcmCompleter GetDoc<CR>
+"nnoremap <leader>ycmf :YcmCompleter FixIt<CR>
 
 ""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -154,11 +154,11 @@ let g:indent_guides_guide_size = 1
 :nmap <silent> <leader>i <Plugin>IndentGuidesToggle<CR>
 
 " ------ UltiSnips Settings -------------------
-let g:UltiSnipsSnippetDirectories=['UltiSnips']
-let g:UltiSnipsSnippetDir="~/.vim/UltiSnips"
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<c-b>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-z>"
+"let g:UltiSnipsSnippetDirectories=['UltiSnips']
+"let g:UltiSnipsSnippetDir="~/.vim/UltiSnips"
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger = "<c-z>"
 
 
 " ----- altercation/vim-colors-solarized settings -----
@@ -202,17 +202,17 @@ let g:nerdtree_tabs_autofind = 1
 
 " ----- scrooloose/syntastic settings -----
 "  有可能有性能问题，一般没事。
-let g:syntastic_check_on_open = 0
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = "▲"
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_error_symbol = '✘'
+"let g:syntastic_warning_symbol = "▲"
 "自动开启静态语法检查
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_loc_list_height = 5
-let g:syntastic_enable_highlighting = 0
-augroup mySyntastic
-  au!
-  au FileType tex let b:syntastic_mode = "passive"
-augroup END
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_loc_list_height = 5
+"let g:syntastic_enable_highlighting = 0
+"augroup mySyntastic
+"  au!
+"  au FileType tex let b:syntastic_mode = "passive"
+"augroup END
 
 
 " ----- xolox/vim-easytags settings -----
@@ -293,8 +293,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! 
 
 "nmap <leader>co :copen<CR>
 "nmap <leader>cc :cclose<CR>
-"
 
-"let mapleader = "\<Space>"
-
-map <leader>h <F1>
+"let mapleader = "\<Space>" "
+map <leader>h <F1> 

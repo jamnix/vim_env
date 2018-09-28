@@ -13,7 +13,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " ----- Making Vim look good ------------------------------------------
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
 
@@ -21,9 +21,9 @@ Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/syntastic'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+"Plugin 'scrooloose/syntastic'
+"Plugin 'xolox/vim-misc'
+"Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
@@ -33,6 +33,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
+"  符号补全
 Plugin 'Raimondi/delimitMate'
 
 " ----- man pages, tmux -----------------------------------------------
@@ -40,9 +41,9 @@ Plugin 'jez/vim-superman'
 Plugin 'christoomey/vim-tmux-navigator'
 
 " ----- Syntax plugins ------------------------------------------------
-Plugin 'jez/vim-c0'
-Plugin 'jez/vim-ispc'
-Plugin 'kchmck/vim-coffee-script'
+"Plugin 'jez/vim-c0'
+"Plugin 'jez/vim-ispc'
+"Plugin 'kchmck/vim-coffee-script'
 
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
@@ -62,6 +63,7 @@ Plugin 'kchmck/vim-coffee-script'
 "Plugin 'cakebaker/scss-syntax.vim'
 "-------------------------------------------------------------------------
 "dragonwei add:
+" 快速注释
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -194,7 +196,7 @@ let g:airline#extensions#tabline#enabled = 1
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
 " nmap <silent> <leader>\t :NERDTreeTabsToggle<CR>
-"nmap <C-t> :NERDTreeTabsToggle<CR>
+nmap <C-n> :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:nerdtree_tabs_autofind = 1
@@ -202,17 +204,17 @@ let g:nerdtree_tabs_autofind = 1
 
 " ----- scrooloose/syntastic settings -----
 "  有可能有性能问题，一般没事。
-let g:syntastic_check_on_open = 0
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = "▲"
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_error_symbol = '✘'
+"let g:syntastic_warning_symbol = "▲"
 "自动开启静态语法检查
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_loc_list_height = 5
-let g:syntastic_enable_highlighting = 0
-augroup mySyntastic
-  au!
-  au FileType tex let b:syntastic_mode = "passive"
-augroup END
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_loc_list_height = 5
+"let g:syntastic_enable_highlighting = 0
+"augroup mySyntastic
+""  au!
+"  au FileType tex let b:syntastic_mode = "passive"
+"augroup END
 
 
 " ----- xolox/vim-easytags settings -----
@@ -220,15 +222,15 @@ augroup END
 "set tags=~/.tags;,~/.vimtags
 set tags=tags;
 " Sensible defaults
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 2
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 1
+"let g:easytags_events = ['BufReadPost', 'BufWritePost']
+"let g:easytags_async = 1
+"let g:easytags_dynamic_files = 2
+"let g:easytags_resolve_links = 1
+"let g:easytags_suppress_ctags_warning = 1
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with \b
-nmap <C-n> :TagbarToggle<CR>
+nmap <C-m> :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 

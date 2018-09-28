@@ -228,7 +228,7 @@ let g:easytags_suppress_ctags_warning = 1
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with \b
-nmap <C-b> :TagbarToggle<CR>
+nmap <C-n> :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 
@@ -274,6 +274,7 @@ au FileType go nmap <leader>rv <Plug>(go-run-vertical)
 
 
 nmap <leader>v :vs <C-R>=expand("<cfile>")<CR><CR>
+nmap <leader>p :echo expand('%:p')<CR>
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! g'\"" | endif
 
@@ -292,3 +293,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! 
 
 "nmap <leader>co :copen<CR>
 "nmap <leader>cc :cclose<CR>
+"
+"let mapleader = "\<Space>"
+
+map <leader>h <F1>

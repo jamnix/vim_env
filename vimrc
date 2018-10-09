@@ -85,6 +85,7 @@ set ruler
 set showcmd
 set incsearch
 set hlsearch
+set nowrapscan
 
 syntax on
 set autoindent

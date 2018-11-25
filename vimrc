@@ -231,6 +231,7 @@ set tags=tags;
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with \b
 nmap <C-m> :TagbarToggle<CR>
+let g:tagbar_sort = 1
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 

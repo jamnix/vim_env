@@ -26,7 +26,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 "Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
-Plugin 'vim-scripts/a.vim'
+"Plugin 'vim-scripts/a.vim'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
@@ -37,8 +37,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'Raimondi/delimitMate'
 
 " ----- man pages, tmux -----------------------------------------------
-Plugin 'jez/vim-superman'
-Plugin 'christoomey/vim-tmux-navigator'
+"Plugin 'jez/vim-superman'
+"Plugin 'christoomey/vim-tmux-navigator'
 
 " ----- Syntax plugins ------------------------------------------------
 "Plugin 'jez/vim-c0'
@@ -64,7 +64,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 "-------------------------------------------------------------------------
 "dragonwei add:
 " 快速注释
-Plugin 'scrooloose/nerdcommenter'
+"Plugin 'scrooloose/nerdcommenter'
 "Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 "-------------------------------------------------------------------------
@@ -85,7 +85,6 @@ set ruler
 set showcmd
 set incsearch
 set hlsearch
-set nowrapscan
 
 syntax on
 set autoindent
@@ -110,7 +109,7 @@ nmap <silent> <Leader>sw :AS<cr>
 set clipboard=unnamed
 "nmap <Leader>y "*y"<cr>
 "vmap <Leader>y "*y"<cr>
-"nmap <Leader>p "*p"<cr>
+"nmap <Leader>p "*p"<cr>  leader p 已经使用了
 
 " -------bufExplorer-----------------------
 "let g:bufExplorerDefaultHelp=0       " Do not show default help.
@@ -151,10 +150,10 @@ set clipboard=unnamed
 
 " ----- Plugin-Specific Settings --------------------------------------
 " ----- nathanaelkane/vim-indent-guides Settings ----------
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-:nmap <silent> <leader>i <Plugin>IndentGuidesToggle<CR>
+"let g:indent_guides_enable_on_vim_startup=1
+"let g:indent_guides_start_level = 2
+"let g:indent_guides_guide_size = 1
+"nmap <silent> <leader>i <Plugin>IndentGuidesToggle<CR>
 
 " ------ UltiSnips Settings -------------------
 "let g:UltiSnipsSnippetDirectories=['UltiSnips']
@@ -198,7 +197,7 @@ let g:airline_section_warning = 0
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
 " nmap <silent> <leader>\t :NERDTreeTabsToggle<CR>
-nmap <C-n> :NERDTreeTabsToggle<CR>
+nmap <leader>n :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:nerdtree_tabs_autofind = 1
@@ -232,7 +231,7 @@ set tags=tags;
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with \b
-nmap <C-m> :TagbarToggle<CR>
+nmap <leader>m :TagbarToggle<CR>
 let g:tagbar_sort = 1
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
@@ -259,19 +258,19 @@ augroup END
 "let g:rehash256 = 0 
 
 nmap <F11> :!cd build && make<CR>
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gb <Plug>(go-build)
+au FileType go nmap <leader>gt <Plug>(go-test)
+au FileType go nmap <leader>gc <Plug>(go-coverage)
 au FileType go nmap <leader>ds <Plug>(go-def-split)
 au FileType go nmap <leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <leader>dt <Plug>(go-def-tab)
 au FileType go nmap <leader>gd <Plug>(go-doc)
-au FileType go nmap <leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <leader>gb <Plug>(go-doc-browser)
-au FileType go nmap <leader>s <Plug>(go-implements)
-au FileType go nmap <leader>i <Plug>(go-info)
-au FileType go nmap <leader>e <Plug>(go-rename)
+au FileType go nmap <leader>gdv <Plug>(go-doc-vertical)
+au FileType go nmap <leader>gdb <Plug>(go-doc-browser)
+au FileType go nmap <leader>im <Plug>(go-implements)
+au FileType go nmap <leader>in <Plug>(go-info)
+au FileType go nmap <leader>re <Plug>(go-rename)
 au FileType go nmap <leader>rt <Plug>(go-run-tab)
 au FileType go nmap <leader>rs <Plug>(go-run-split)
 au FileType go nmap <leader>rv <Plug>(go-run-vertical)
@@ -283,21 +282,21 @@ nmap <leader>p :echo expand('%:p')<CR>
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! g'\"" | endif
 
-""if filereadable("cscope.out")
-""set cscopequickfix=s-,c-,d-,i-,t-,e-,g-
-""cs add cscope.out
-"nmap <leader>f :e cscope.files<CR>
-"nmap <leader>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-"nmap <leader>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-"nmap <leader>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-"nmap <leader>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-"nmap <leader>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-""nmap <leader>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-"nmap <leader>i :scs find i <C-R>=expand("<cfile>")<CR><CR>
-"nmap <leader>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+"if filereadable("cscope.out")
+set cscopequickfix=s-,c-,d-,i-,t-,e-,g-
+cs add cscope.out
+nmap <leader>f :e cscope.files<CR>
+nmap <leader>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+"nmap <leader>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <leader>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
+nmap <leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
-"nmap <leader>co :copen<CR>
-"nmap <leader>cc :cclose<CR>
+nmap <leader>co :copen<CR>
+nmap <leader>cc :cclose<CR>
 
 "let mapleader = "\<Space>" "
 map <leader>h <F1> 

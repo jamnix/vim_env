@@ -4,18 +4,20 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ----- Making Vim look good ------------------------------------------
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " ----- Vim as a programmer's text editor -----------------------------
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 "Plug 'Valloric/YouCompleteMe'
 " nerdtree的插件加强插件
 Plug 'jistr/vim-nerdtree-tabs'
 "Plug 'scrooloose/syntastic'
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-easytags'
-Plug 'majutsushi/tagbar'
-Plug 'kien/ctrlp.vim'
+Plug 'preservim/tagbar'
+"Plug 'kien/ctrlp.vim'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 "Plug 'vim-scripts/a.vim'
 
 " ----- Working with Git ----------------------------------------------
@@ -64,6 +66,8 @@ Plug 'fatih/vim-go'
 "switching between companion files
 Plug 'jlanzarotta/bufexplorer'
 
+Plug 'rhysd/vim-clang-format'
+
 call plug#end()
 
 " -------------------------- General settings ----------------------------
@@ -75,10 +79,10 @@ set t_Co=256
 filetype plugin indent on
 
 " set the select color of vim 
-hi IncSearch term=standout ctermfg=0 ctermbg=3
+"hi IncSearch term=standout ctermfg=0 ctermbg=3
 " 高亮光标所在行
-hi CursorColumn term=standout ctermfg=0 ctermbg=3
-hi StatusLine term=standout ctermfg=0 ctermbg=3
+"hi CursorColumn term=standout ctermfg=0 ctermbg=3
+"hi StatusLine term=standout ctermfg=0 ctermbg=3
 " 是否需要放在配置的最开始
 set nocompatible
 " 设置backspace作为删除键
@@ -176,7 +180,7 @@ set updatetime=100
 
 " ------------------------ airblade/vim-gitgutter settings -----
 " Required after having changed the colorscheme
-hi clear SignColumn
+"hi clear SignColumn
 " In vim-airline, only display "hunks" if the diff is non-zero
 let g:airline#extensions#hunks#non_zero_only = 1
 
@@ -190,10 +194,6 @@ augroup mydelimitMate
   au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
-
-
-
-
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
 " 补全选项 completeopt
@@ -213,9 +213,9 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-nmap <silent>fm <Plug>(coc-format) 
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
+"nmap <silent>fm <Plug>(coc-format) 
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -237,12 +237,10 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-
-
 nmap <leader>v :vs <C-R>=expand("<cfile>")<CR><CR>
 nmap <leader>p :echo expand('%:p')<CR>
-nmap <leader>kk :mksession! /tmp/.session.vim<CR>
-nmap <leader>ss :source /tmp/.session.vim<CR>
+nmap <leader>ss :mksession! /tmp/.session.vim<CR>
+nmap <leader>kk :source /tmp/.session.vim<CR>
 nmap <leader>vm :vs /data/mm64/harleyhuang/QQMail/micromsg/mmfinder/proto<CR>
 nmap <leader>vg :vs /data/mm64/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>
 
@@ -253,3 +251,26 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! 
 map <leader>h <F1> 
 map <leader>w :set wrap<CR>
 
+"let g:clang_format#auto_format_on_insert_leave=1
+"let g:clang_format#auto_format=1
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
+
+
+"map <C-K> :pyf $HOME/tools/clang-format.py<cr>
+"imap <C-K> <c-o>:pyf $HOME/tools/clang-format.py<cr>
+" Use clang-format to format c++/c source files
+" autocmd FileType c,cpp,h,hpp setlocal equalprg=clang-format\ --style=file
+
+let g:Lf_ShortcutF = "<C-P>"
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+
+"noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+"noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+" search visually selected text literally
+"xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+"noremap go :<C-U>Leaderf! rg --recall<CR>

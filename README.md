@@ -10,3 +10,16 @@ gitdiff的使用方法
 external = gitdiff
 [pager]
 diff =
+
+
+plug.vim 插件
+PlugInstall 安装插件
+
+
+软连接：
+/home/harleyhuang/.vim/coc-settings.json -> ../vim_env/coc-settings.json
+/home/harleyhuang/.vimrc -> vim_env/vimrc_ccls
+/home/harleyhuang/.bashrc -> vim_env/bashrc
+/home/harleyhuang/.gitignore_global -> vim_env/gitignore_global
+/home/harleyhuang/.gitconfig -> vim_env/gitconfig
+/home/harleyhuang/.clang-format -> vim_env/clang-format

@@ -38,12 +38,15 @@ export PATH=/data/home/harleyhuang/vim_env:/data/home/harleyhuang/tencent_projec
 alias auto_go='/data/home/harleyhuang/tencent_project/going_proj/tools/attr/attr_go.py'
 
 #alias vi="/data/home/harleyhuang/bin/bin/vim"
-
-export TERM=xterm-256color
+# 文件路径
 CLICOLOR=1
 LSCOLORS=gxfxcxdxegedabagacad
+
+# 以下是mac 里的bash_profile配置
+# mac需要命名为bash_profile才行 命名为bashrc不能生效
+export PS1="\u@\h:\w>"
+export TERM=xterm-256color
 alias ll='ls -l --color'
 alias ls='ls --color'
 alias grep='grep --color'
-
-
+export PATH=/opt/homebrew/bin:$PATH

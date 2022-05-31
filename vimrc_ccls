@@ -271,7 +271,9 @@ let g:Lf_RootMarkers = ['.git']
 "let g:Lf_UseVersionControlTool=1 "这个是默认选项, 可以不写"
 let g:Lf_DefaultExternalTool='rg'
 "let g:Lf_FollowLinks=1
-"let g:Lf_WorkingDirectory = '/home/harleyhuang/QQMail'
+
+"LeaderF's working directory. It will ignore the g:Lf_RootMarkers andLf_WorkingDirectoryMode option set
+"let g:Lf_WorkingDirectory = '/home/harleyhuang/QQMail'  
 
 "noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
@@ -282,14 +284,16 @@ noremap <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 "let g:Lf_PreviewResult = {'Rg': 1 }
 " search word under cursor, the pattern is treated as regex, and enter normal mode directly
 " --stayOpen
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F -e %s /home/harleyhuang/QQMail/micromsg /home/harleyhuang/QQMail/mmgateway", expand("<cword>"))<CR>
+" noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F -e %s /home/harleyhuang/QQMail/micromsg /home/harleyhuang/QQMail/mmgateway", expand("<cword>"))<CR>
 
 " append the result to previous search results.
 "noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg --append -e %s ", expand("<cword>"))<CR>
 
 " search word under cursor literally in all listed buffers
 "noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg -F --all-buffers -e %s ", expand("<cword>"))<CR>
-noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F -e %s ", expand("<cword>"))<CR>
+noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=c -F -e %s ", expand("<cword>"))<CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=A -F -e %s ", expand("<cword>"))<CR>
+noremap <C-H> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F -e %s ", expand("<cword>"))<CR>
 
 " recall last search. If the result window is closed, reopen it.
 noremap <leader>go :<C-U>Leaderf! rg --recall<CR>

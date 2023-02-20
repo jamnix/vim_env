@@ -1,3 +1,4 @@
+---
 Language: Cpp
 BasedOnStyle: Google
 ColumnLimit: 120
@@ -11,7 +12,7 @@ DerivePointerAlignment: true
 PointerAlignment: Left
 
 # Only sort headers in each include block
-SortIncludes: true
+SortIncludes: false
 IncludeBlocks: Preserve
 
 # 让 #if/#else/#endif 宏中的内容保持缩进，比如：
@@ -21,3 +22,10 @@ IncludeBlocks: Preserve
 #   #  include <curl.h>
 #   #endif
 IndentPPDirectives: AfterHash
+
+---
+Language: Proto
+BasedOnStyle: Google
+
+ColumnLimit: 200
+AlignConsecutiveAssignments: true

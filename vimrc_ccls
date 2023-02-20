@@ -8,10 +8,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " ----- Vim as a programmer's text editor -----------------------------
-Plug 'preservim/nerdtree'
-"Plug 'Valloric/YouCompleteMe'
+" 暂时关闭preservim/nerdtree 和 jistr/vim-nerdtree-tabs
+" 解决分屏切换的时候避免自动打开nerdtree
+"Plug 'preservim/nerdtree'
 " nerdtree的插件加强插件
-Plug 'jistr/vim-nerdtree-tabs'
+"Plug 'jistr/vim-nerdtree-tabs'
 "Plug 'scrooloose/syntastic'
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-easytags'
@@ -250,6 +251,7 @@ nmap <leader>vm :vs /data/mm64/harleyhuang/QQMail/mmproto/csproto/finder<CR>
 nmap <leader>vg :vs /data/mm64/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>
 nmap <leader>no :set wrapscan<CR>
 nmap <leader>nc :set nowrapscan<CR>
+nmap <C-j> <C-d>
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! g'\"" | endif
 
@@ -276,10 +278,10 @@ let g:Lf_DefaultExternalTool='rg'
 "let g:Lf_WorkingDirectory = '/home/harleyhuang/QQMail'  
 
 "noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
-noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
+"noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+"noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+"noremap <leader>fl :<C-U><C-R>=printf("Leaderf! line --stayOpen --regexMode --no-sort --input \\<%s\\> ", expand("<cword>"))<CR><CR>
+"noremap <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 
 "let g:Lf_PreviewResult = {'Rg': 1 }
 " search word under cursor, the pattern is treated as regex, and enter normal mode directly
@@ -291,12 +293,14 @@ noremap <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 
 " search word under cursor literally in all listed buffers
 "noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg -F --all-buffers -e %s ", expand("<cword>"))<CR>
-noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=c -F -e %s ", expand("<cword>"))<CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=A -F -e %s ", expand("<cword>"))<CR>
-noremap <C-H> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F -e %s ", expand("<cword>"))<CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --current-buffer --heading -e %s ", expand("<cword>"))<CR>
+"noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=c -F --heading -e %s ", expand("<cword>"))<CR><CR>
+noremap <leader>ff :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F --heading -e %s %s ", expand("<cword>"), expand("%:p:h"))<CR>
+noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F --heading -e %s ", expand("<cword>"))<CR>
 
 " recall last search. If the result window is closed, reopen it.
 noremap <leader>go :<C-U>Leaderf! rg --recall<CR>
+noremap <leader>gc :<C-U>Leaderf! rg --recall<CR>:q<CR>
 
 "解决coc.nvim大文件卡死状况
 let g:trigger_size = 0.5 * 1048576

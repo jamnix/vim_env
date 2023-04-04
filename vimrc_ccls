@@ -263,8 +263,8 @@ map <leader>w :set wrap<CR>
 "let g:clang_format#auto_format_on_insert_leave=1
 "let g:clang_format#auto_format=1
 " map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
+autocmd FileType c,cpp,objc,proto nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc,proto vnoremap <buffer><C-K> :ClangFormat<CR>
 
 let g:Lf_ShortcutF = "<C-P>"
 let g:Lf_HideHelp = 1

@@ -23,6 +23,8 @@ PlugInstall 安装插件
 /home/harleyhuang/.gitignore_global -> vim_env/gitignore_global
 /home/harleyhuang/.gitconfig -> vim_env/gitconfig
 /home/harleyhuang/.clang-format -> vim_env/clang-format
+/home/harleyhuang/.tmux.conf -> vim_env/tmux.conf
+/home/harleyhuang/.tmux.conf.local -> vim_env/tmux.conf.local
 
 bash_profile 部分配置是mac使用
 

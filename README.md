@@ -17,7 +17,7 @@ PlugInstall 安装插件
 
 
 软连接：
-/home/harleyhuang/.vim/coc-settings.json -> ../vim_env/coc-settings.json
+/home/harleyhuang/.vim/coc-settings.json -> ../vim_env/coc-settings.json.ccls   // 由于clang太卡了所以切会到ccls了
 /home/harleyhuang/.vimrc -> vim_env/vimrc_ccls
 /home/harleyhuang/.bashrc -> vim_env/bashrc
 /home/harleyhuang/.gitignore_global -> vim_env/gitignore_global
@@ -25,3 +25,9 @@ PlugInstall 安装插件
 /home/harleyhuang/.clang-format -> vim_env/clang-format
 
 bash_profile 部分配置是mac使用
+
+coc-nvim注意:
+1. 用CocList extensions查询已经安装的coc插件
+2. 需要的coc插件为:
+coc-diagnostic 
+coc-clangd

@@ -1,1 +1,5 @@
 pd.sh
+pd_client.sh
+*.swp
+*.swo
+.ccls-cache

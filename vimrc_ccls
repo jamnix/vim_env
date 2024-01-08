@@ -158,6 +158,9 @@ let g:airline_detect_paste=1
 " Show airline for tabs too
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_section_warning = 0
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:airline_section_b = ''
+let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab                                                    
 
 " ------------------------ jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
@@ -198,14 +201,21 @@ augroup END
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
 " 补全选项 completeopt
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-nmap <silent> <C-n> <Plug>(coc-diagnostic-prev)
-nmap <silent> <C-m> <Plug>(coc-diagnostic-next)
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+nmap <silent> g[ <Plug>(coc-diagnostic-prev)
+nmap <silent> g] <Plug>(coc-diagnostic-next)
 " Show all diagnostics.
 nnoremap <silent><nowait> <leader>ba  :<C-u>CocDiagnostics<cr>
 
@@ -225,18 +235,18 @@ nmap <leader>rn <Plug>(coc-rename)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json,cc,c++ setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json,c,cc,c++,proto,cpp setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+nnoremap <silent> K :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
@@ -251,7 +261,7 @@ nmap <leader>vm :vs /data/mm64/harleyhuang/QQMail/mmproto/csproto/finder<CR>
 nmap <leader>vg :vs /data/mm64/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>
 nmap <leader>no :set wrapscan<CR>
 nmap <leader>nc :set nowrapscan<CR>
-nmap <C-j> <C-d>
+"nmap <C-j> <C-d>
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! g'\"" | endif
 
@@ -263,12 +273,16 @@ map <leader>w :set wrap<CR>
 "let g:clang_format#auto_format_on_insert_leave=1
 "let g:clang_format#auto_format=1
 " map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc,proto nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc,proto vnoremap <buffer><C-K> :ClangFormat<CR>
+" 用ClangFormat命令格式化 然后想ctrl u撤回的时候总是出问题 所以切到用coc的format能力了
+"autocmd FileType c,cpp,objc,proto nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
+"autocmd FileType c,cpp,objc,proto vnoremap <buffer><C-K> :ClangFormat<CR>
+
+xmap <C-k>  <Plug>(coc-format-selected)
+nmap <C-k>  <Plug>(coc-format-selected)
 
 let g:Lf_ShortcutF = "<C-P>"
 let g:Lf_HideHelp = 1
-let g:Lf_WorkingDirectoryMode = 'A'
+let g:Lf_WorkingDirectoryMode = 'f'
 let g:Lf_RootMarkers = ['.git']
 "let g:Lf_UseVersionControlTool=1 "这个是默认选项, 可以不写"
 let g:Lf_DefaultExternalTool='rg'

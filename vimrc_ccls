@@ -255,7 +255,7 @@ endfunction
 
 nmap <leader>v :vs <C-R>=expand("<cfile>")<CR><CR>
 nmap <leader>p :echo expand('%:p')<CR>
-nmap <leader>ss :mksession! /tmp/.session.vim<CR>
+nmap <leader>ss :mksession! /tmp/.session.vim.<C-R>=expand('%:t')<CR><CR>
 nmap <leader>kk :source /tmp/.session.vim<CR>
 nmap <leader>vm :vs /data/mm64/harleyhuang/QQMail/mmproto/csproto/finder<CR>
 nmap <leader>vg :vs /data/mm64/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>

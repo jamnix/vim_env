@@ -1,0 +1,4 @@
+cmd="patchbuild build :$1 $opt -t mmnewlifelogicsvrshrdma1-1"
+eval $cmd
+#cmd="patchbuild build :$1 $opt -t mmnewlifelogicsvrszrdmb1-1"
+#eval $cmd

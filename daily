@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# 读取最后三行
+source /home/harleyhuang/.bashrc
+
+# 遍历每个目录
+_z 2>&1 | grep QQMail | tail -10 | tac | awk '{print $2}' | while read dir; do
+  # 切换到目录
+  echo "切换到目录: $dir"
+  cd "$dir" || exit
+  # 获取当前目录的名字
+  current_dir_name=$(basename "$PWD")
+  echo ">>>当前目录名为: $current_dir_name"
+  cmd="patchbuild build :$current_dir_name $opt $personal --svn-update --remote-limit=3"
+  echo ">>>执行命令 $cmd"
+  eval $cmd
+  genfile_cmd="patchbuild build :$current_dir_name $opt $genfiles"
+  echo ">>>执行genfile命令 $genfile_cmd"
+  eval $genfile_cmd
+  build_client_cmd="sh buildclient.sh"
+  echo ">>>执行buildclient命令 $build_client_cmd"
+  eval $build_client_cmd
+
+  # 执行命令
+  # 这里可以放置你需要执行的命令
+  echo ""
+done

@@ -199,6 +199,14 @@ augroup mydelimitMate
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
+" ------ 从anydev vimrc参考过来 以后研究有什么区别
+"autocmd FileType json syntax match Comment +\/\/.\+$+
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+"autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
 autocmd FileType json syntax match Comment +\/\/.\+$+
 " 补全选项 completeopt
 inoremap <silent><expr> <TAB>
@@ -228,10 +236,21 @@ nmap <silent> gr <Plug>(coc-references)
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
+" ---- rhysd/vim-clang-format settings -----
+"let g:clang_format#auto_format_on_insert_leave=1
+"let g:clang_format#auto_format=1
+" map to <Leader>cf in C++ code
+" 用ClangFormat命令格式化 然后想ctrl u撤回的时候总是出问题 所以切到用coc的format能力了
+"autocmd FileType c,cpp,objc,proto nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
+"autocmd FileType c,cpp,objc,proto vnoremap <buffer><C-K> :ClangFormat<CR>
+
+" ---- coc-format settings -----
 " Remap for format selected region
 "xmap <leader>f  <Plug>(coc-format-selected)
 "nmap <leader>f  <Plug>(coc-format-selected)
 "nmap <silent>fm <Plug>(coc-format) 
+xmap <C-k>  <Plug>(coc-format-selected)
+nmap <C-k>  <Plug>(coc-format-selected)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -269,16 +288,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! 
 "let mapleader = "\<Space>" "
 map <leader>h <F1> 
 map <leader>w :set wrap<CR>
-
-"let g:clang_format#auto_format_on_insert_leave=1
-"let g:clang_format#auto_format=1
-" map to <Leader>cf in C++ code
-" 用ClangFormat命令格式化 然后想ctrl u撤回的时候总是出问题 所以切到用coc的format能力了
-"autocmd FileType c,cpp,objc,proto nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
-"autocmd FileType c,cpp,objc,proto vnoremap <buffer><C-K> :ClangFormat<CR>
-
-xmap <C-k>  <Plug>(coc-format-selected)
-nmap <C-k>  <Plug>(coc-format-selected)
 
 let g:Lf_ShortcutF = "<C-P>"
 let g:Lf_HideHelp = 1

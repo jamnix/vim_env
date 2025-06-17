@@ -1,3 +1,8 @@
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+
 export TERM=xterm-256color
 test -s ~/bin/bladefunctions && . ~/bin/bladefunctions || true
 export PS1="\u@\h:\w>" 
@@ -10,7 +15,7 @@ export opt="--gcc-version=gcc7  --os-name=tlinux2 --use-branch=mm3rd2/gperftools
 export clang_opt="--env-name=weixin_clang --clang --use-branch=mm3rd2/gperftools:origin/gperftools-2.0-no-tcmalloc"
 export docker_opt="--svn-update --no-patch"
 export personal="--personal-host"
-export VIMRUNTIME="$HOME/bin/share/vim/vim90"
+#export VIMRUNTIME="$HOME/bin/share/vim/vim90"
 
 source /home/harleyhuang/z/z.sh 
 
@@ -24,3 +29,4 @@ export toutf8="perl -pe 's/\\\\([0-7]{3})/chr(oct(\$1))/ge'"
 export tored="perl -pe 's/(qza)/\e[1;31m$1\e[0m/g'"
 # 记得source ~/.bashrc
 export LANG=zh_CN.UTF8
+. ~/.profile_comm

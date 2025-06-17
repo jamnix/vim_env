@@ -5,7 +5,7 @@ svndiff的使用方法：
 
 
 gitdiff的使用方法
-在.gitconfig里添加如下配置
+在.gitconfig里添加如下配置 然后把gitdiff文件放在bin路径下
 [diff]
 external = gitdiff
 [pager]
@@ -23,6 +23,7 @@ PlugInstall 安装插件
 /home/harleyhuang/.gitignore_global -> vim_env/gitignore_global
 /home/harleyhuang/.gitconfig -> vim_env/gitconfig
 /home/harleyhuang/.clang-format -> vim_env/clang-format
+/home/harleyhuang/.config/clangd/config.yaml -> vim_env/config.yaml
 /home/harleyhuang/.tmux.conf -> vim_env/tmux.conf
 /home/harleyhuang/.tmux.conf.local -> vim_env/tmux.conf.local
 
@@ -32,4 +33,9 @@ coc-nvim注意:
 1. 用CocList extensions查询已经安装的coc插件
 2. 需要的coc插件为:
 coc-diagnostic 
-coc-clangd
+coc-clangd (If you've configured clangd as a languageServer in coc-settings.json, you should remove it to avoid running clangd twice!)
+
+vim中查看clangd的log:
+vim中输入:CocCommand workspace.showOutput，选择clangd的窗口
+:CocList diagnostics
+如果想要查看更为详细的clangd log，需要在~/.vim/coc-settings.json中设置--log=verbose

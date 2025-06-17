@@ -36,3 +36,20 @@
 	helper = store
 [log]
 	data = local
+
+[lfs]
+	storage = /data/home/harleyhuang/.lfs
+
+[safe]
+	directory = *
+
+[url "https://git.woa.com/"]
+	insteadOf = https://git.code.oa.com/
+	insteadOf = http://git.code.oa.com/
+	insteadOf = http://git.woa.com/
+	insteadOf = git@git.woa.com:
+	insteadOf = git@git.code.oa.com:
+	insteadOf = https://harleyhuang@git.code.oa.com/
+	insteadOf = http://harleyhuang@git.code.oa.com/
+	insteadOf = http://harleyhuang@git.woa.com/
+

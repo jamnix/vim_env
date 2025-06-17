@@ -1,16 +1,29 @@
 {
+    "languageserver": {
+      "coc-clangd": {
+        "command": "clangd",
+        "args": [
+              "--compile-commands-dir=/data/home/harleyhuang/QQMail",
+              "--pch-storage=disk",
+              "--j=3"
+        ],
+        "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+        "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+      }
+    }
+
     //"diagnostic.enable" : false,
     //"clangd.disableDiagnostics" : true,
-    "clangd.disableProgressNotifications" : true,
+    //"clangd.disableProgressNotifications" : true,
     //"suggest.triggerAfterInsertEnter": true,
     //"suggest.noselect": false,
     //"suggest.enablePreview": true,
     //"suggest.minTriggerInputLength": 2,
     //"suggest.acceptSuggestionOnCommitCharacter": true,
-    "diagnostic.enableMessage": "jump",
+    //"diagnostic.enableMessage": "jump",
     //"diagnostic.errorSign": "⛔",
     //"diagnostic.errorSign": "✖",
-    "diagnostic.errorSign": ">",
+    //"diagnostic.errorSign": ">",
     //"diagnostic.warningSign": "⚠",
     //"diagnostic.infoSign": "●",
     //"diagnostic.hintSign": "○",

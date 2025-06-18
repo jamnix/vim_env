@@ -15,6 +15,11 @@ diff =
 plug.vim 插件
 PlugInstall 安装插件
 
+git clone https://github.com/rupa/z.git
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
 
 软连接：
 /home/harleyhuang/.vim/coc-settings.json -> ../vim_env/coc-settings.json.ccls   // 由于clang太卡了所以切会到ccls了
@@ -38,4 +43,6 @@ coc-clangd (If you've configured clangd as a languageServer in coc-settings.json
 vim中查看clangd的log:
 vim中输入:CocCommand workspace.showOutput，选择clangd的窗口
 :CocList diagnostics
+或者vim中输入:CocDiagnostics
 如果想要查看更为详细的clangd log，需要在~/.vim/coc-settings.json中设置--log=verbose
+

@@ -1,6 +1,6 @@
 {
     "languageserver": {
-      "coc-clangd": {
+      "clangd": {
         "command": "clangd",
         "args": [
               "--compile-commands-dir=/data/home/harleyhuang/QQMail",
@@ -10,8 +10,9 @@
         "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
         "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
       }
-    }
+    },
 
+    "diagnostic.enableMessage": "jump"
     //"diagnostic.enable" : false,
     //"clangd.disableDiagnostics" : true,
     //"clangd.disableProgressNotifications" : true,

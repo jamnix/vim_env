@@ -69,7 +69,13 @@ Plug 'jlanzarotta/bufexplorer'
 
 Plug 'rhysd/vim-clang-format'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+"Plug '~/.fzf'
+
 call plug#end()
+
+"set rtp+=~/.fzf
 
 " -------------------------- General settings ----------------------------
 
@@ -318,7 +324,7 @@ let g:Lf_DefaultExternalTool='rg'
 "noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg -F --all-buffers -e %s ", expand("<cword>"))<CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --current-buffer --heading -e %s ", expand("<cword>"))<CR>
 "noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=c -F --heading -e %s ", expand("<cword>"))<CR><CR>
-noremap <leader>ff :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F --heading -e %s %s ", expand("<cword>"), expand("%:p:h"))<CR>
+noremap <leader>fh :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F --heading -e %s %s ", expand("<cword>"), expand("%:p:h"))<CR>
 noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F --heading -e %s ", expand("<cword>"))<CR>
 
 " recall last search. If the result window is closed, reopen it.
@@ -340,4 +346,31 @@ augroup hugefile
         \ endif |
         \ unlet size
 augroup END
+
+nnoremap <Leader>ff :Files %:p:h<CR>
+nnoremap <Leader>fk :RGp<CR>
+nnoremap <Leader>fw :RGw<CR>
+
+command! -bang -nargs=* Rgp
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({
+  \     'dir': expand('%:p:h')
+  \   }), <bang>0)
+
+command! -bang -nargs=* RGp
+  \ call fzf#vim#grep2(
+  \   'rg --column --line-number --no-heading --color=always --smart-case', <q-args>, 1,
+  \   fzf#vim#with_preview({
+  \     'dir': expand('%:p:h')
+  \   }), <bang>0)
+
+command! -bang -nargs=* RGw
+  \ call fzf#vim#grep2(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -w', <q-args>, 1,
+  \   fzf#vim#with_preview({
+  \     'dir': expand('%:p:h')
+  \   }), <bang>0)
+
+
 

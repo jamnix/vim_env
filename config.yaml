@@ -1,7 +1,7 @@
 InlayHints:
   BlockEnd: false
   Designators: true
-  Enabled: true
+  Enabled: false
   ParameterNames: false
   DeducedTypes: false
   DefaultArguments: false

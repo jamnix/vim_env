@@ -21,7 +21,7 @@ source /home/harleyhuang/z/z.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 #export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --no-sort'
-export FZF_DEFAULT_OPTS="--height 70% --no-sort --layout=reverse --border --color --ansi --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
+export FZF_DEFAULT_OPTS="--exact --height 70% --no-sort --layout=reverse --border --color --ansi --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 #export FZF_DEFAULT_COMMAND="find --exclude={.git,.idea,.vscode,.sass-cache,.ccls-cache,bazel-out} --type f"
 
@@ -30,3 +30,39 @@ export tored="perl -pe 's/(qza)/\e[1;31m$1\e[0m/g'"
 # 记得source ~/.bashrc
 export LANG=zh_CN.UTF8
 . ~/.profile_comm
+
+ff() {
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --preview-window=right:70% --preview="bat --color=always {}"))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
+#fl() {
+#  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for\!"; return 1; fi
+#  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+#}
+
+fk() {
+  if [ "$#" -eq 0 ]; then
+    echo "Usage: fk <search_term>" >&2
+    return 1
+  fi
+
+  rg --files-with-matches --no-messages --smart-case "$1" | \
+  fzf --preview "bat --style=numbers --color=always {} | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || cat {}" \
+      --preview-window=right:80% \
+      --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down' \
+      --bind 'enter:execute(vim {} > /dev/tty)'
+}
+
+fw() {
+  if [ "$#" -eq 0 ]; then
+    echo "Usage: fkw <search_term>" >&2
+    return 1
+  fi
+
+  rg --files-with-matches --no-messages --smart-case -w "$1" | \
+  fzf --preview "rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 -w '$1' {} || bat --style=numbers --color=always {}" \
+      --preview-window=right:80% \
+      --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down' \
+      --bind 'enter:execute(vim {} > /dev/tty)'
+}

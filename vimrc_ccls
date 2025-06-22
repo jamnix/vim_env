@@ -81,8 +81,8 @@ call plug#end()
 
 " -------------------------- General settings ----------------------------
 
-"set term=xterm-256color
-set t_Co=256
+set term=xterm-256color
+"set t_Co=256
 " filetype  off
 
 filetype plugin indent on
@@ -351,7 +351,7 @@ augroup hugefile
         \ unlet size
 augroup END
 
-let g:fzf_preview_window = ['right:60%:wrap']
+let g:fzf_preview_window = ['right:50%:wrap']
 nnoremap <Leader>ff :Files %:p:h<CR>
 nnoremap <Leader>fl :RGp<CR>
 nnoremap <Leader>fk :RGw<CR>
@@ -362,7 +362,7 @@ command! -bang -nargs=* Rgp
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({
   \     'dir': expand('%:p:h'),
-  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down'
+  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down --wrap'
   \   }), <bang>0)
 
 " 搜索内容 fl
@@ -371,7 +371,7 @@ command! -bang -nargs=* RGp
   \   'rg --column --line-number --no-heading --color=always --smart-case', <q-args>, 1,
   \   fzf#vim#with_preview({
   \     'dir': expand('%:p:h'),
-  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down'
+  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down --wrap'
   \   }), <bang>0)
 
 " 搜索内容 fk
@@ -380,8 +380,6 @@ command! -bang -nargs=* RGw
   \   'rg --column --line-number --no-heading --color=always --smart-case -w', <q-args>, 1,
   \   fzf#vim#with_preview({
   \     'dir': expand('%:p:h'),
-  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down'
+  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down --wrap'
   \   }), <bang>0)
-
-
 

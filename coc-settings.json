@@ -5,7 +5,7 @@
         "args": [
               "--compile-commands-dir=/data/home/harleyhuang/QQMail",
               // "--pch-storage=disk",
-              "--j=3",
+              "--j=32",
               "--malloc-trim",
               "--pch-storage=memory",
               "--background-index",

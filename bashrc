@@ -21,7 +21,8 @@ source /home/harleyhuang/z/z.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 #export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --no-sort'
-export FZF_DEFAULT_OPTS="--exact --height 70% --no-sort --layout=reverse --border --color --ansi --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
+#export FZF_DEFAULT_OPTS="--exact --no-mouse --height 70% --no-sort --layout=reverse --border --color --ansi --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
+export FZF_DEFAULT_OPTS="--exact --no-mouse --height 70% --no-sort --layout=reverse --border --color --ansi"
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 #export FZF_DEFAULT_COMMAND="find --exclude={.git,.idea,.vscode,.sass-cache,.ccls-cache,bazel-out} --type f"
 

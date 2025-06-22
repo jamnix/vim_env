@@ -351,7 +351,7 @@ augroup hugefile
         \ unlet size
 augroup END
 
-let g:fzf_preview_window = ['right:70%:wrap']
+let g:fzf_preview_window = ['right:60%:wrap']
 nnoremap <Leader>ff :Files %:p:h<CR>
 nnoremap <Leader>fl :RGp<CR>
 nnoremap <Leader>fk :RGw<CR>

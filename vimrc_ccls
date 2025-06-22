@@ -22,7 +22,9 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'vim-scripts/a.vim'
 
 " ----- Working with Git ----------------------------------------------
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
+" 使用vim-signify 来替换vim-gitgutter 因为 vim-gitgutter 太卡了
+Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
@@ -167,6 +169,8 @@ let g:airline_section_warning = 0
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_section_b = ''
 let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab                                                    
+" In vim-airline, only display "hunks" if the diff is non-zero
+let g:airline#extensions#hunks#non_zero_only = 1
 
 " ------------------------ jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
@@ -187,13 +191,13 @@ set updatetime=100
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 
-
-" ------------------------ airblade/vim-gitgutter settings -----
-" Required after having changed the colorscheme
-"hi clear SignColumn
-" In vim-airline, only display "hunks" if the diff is non-zero
-let g:airline#extensions#hunks#non_zero_only = 1
-
+" ------------------------ mhinz/vim-signify settings -----
+" 只在有变更时显示符号
+let g:signify_sign_show_count = 1
+" 设置符号样式
+let g:signify_sign_add    = '+'
+let g:signify_sign_delete = '_'
+let g:signify_sign_change = '~'
 
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
@@ -322,7 +326,7 @@ let g:Lf_DefaultExternalTool='rg'
 
 " search word under cursor literally in all listed buffers
 "noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg -F --all-buffers -e %s ", expand("<cword>"))<CR>
-noremap <leader>fl :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --current-buffer --heading -e %s ", expand("<cword>"))<CR>
+noremap <leader>ll :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --current-buffer --heading -e %s ", expand("<cword>"))<CR>
 "noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=c -F --heading -e %s ", expand("<cword>"))<CR><CR>
 noremap <leader>fh :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F --heading -e %s %s ", expand("<cword>"), expand("%:p:h"))<CR>
 noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F --heading -e %s ", expand("<cword>"))<CR>
@@ -347,29 +351,36 @@ augroup hugefile
         \ unlet size
 augroup END
 
+let g:fzf_preview_window = ['right:70%:wrap']
 nnoremap <Leader>ff :Files %:p:h<CR>
-nnoremap <Leader>fk :RGp<CR>
-nnoremap <Leader>fw :RGw<CR>
+nnoremap <Leader>fl :RGp<CR>
+nnoremap <Leader>fk :RGw<CR>
 
+" 搜索文件和内容  无快捷键
 command! -bang -nargs=* Rgp
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({
-  \     'dir': expand('%:p:h')
+  \     'dir': expand('%:p:h'),
+  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down'
   \   }), <bang>0)
 
+" 搜索内容 fl
 command! -bang -nargs=* RGp
   \ call fzf#vim#grep2(
   \   'rg --column --line-number --no-heading --color=always --smart-case', <q-args>, 1,
   \   fzf#vim#with_preview({
-  \     'dir': expand('%:p:h')
+  \     'dir': expand('%:p:h'),
+  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down'
   \   }), <bang>0)
 
+" 搜索内容 fk
 command! -bang -nargs=* RGw
   \ call fzf#vim#grep2(
   \   'rg --column --line-number --no-heading --color=always --smart-case -w', <q-args>, 1,
   \   fzf#vim#with_preview({
-  \     'dir': expand('%:p:h')
+  \     'dir': expand('%:p:h'),
+  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down'
   \   }), <bang>0)
 
 

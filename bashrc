@@ -32,7 +32,7 @@ export LANG=zh_CN.UTF8
 . ~/.profile_comm
 
 ff() {
-  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --preview-window=right:70% --preview="bat --color=always {}"))
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --preview-window=right:70%:wrap --preview="bat --color=always {}"))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
@@ -41,28 +41,30 @@ ff() {
 #  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
 #}
 
+fl() {
+  if [ "$#" -eq 0 ]; then
+    echo "Usage: fl <search_term>" >&2
+    return 1
+  fi
+
+  # 占用了 ctrl-u 所以不能用ctrl-u清理输入
+  rg --files-with-matches --no-messages --smart-case "$1" | \
+  fzf --preview "bat --style=numbers --color=always {} | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || cat {}" \
+      --preview-window=right:70%:wrap \
+      --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down' \
+      --bind 'enter:execute(vim {} > /dev/tty)'
+}
+
 fk() {
   if [ "$#" -eq 0 ]; then
     echo "Usage: fk <search_term>" >&2
     return 1
   fi
 
-  rg --files-with-matches --no-messages --smart-case "$1" | \
-  fzf --preview "bat --style=numbers --color=always {} | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || cat {}" \
-      --preview-window=right:80% \
-      --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down' \
-      --bind 'enter:execute(vim {} > /dev/tty)'
-}
-
-fw() {
-  if [ "$#" -eq 0 ]; then
-    echo "Usage: fkw <search_term>" >&2
-    return 1
-  fi
-
+  # 占用了 ctrl-u 所以不能用ctrl-u清理输入
   rg --files-with-matches --no-messages --smart-case -w "$1" | \
   fzf --preview "rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 -w '$1' {} || bat --style=numbers --color=always {}" \
-      --preview-window=right:80% \
+      --preview-window=right:70%:wrap \
       --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down' \
       --bind 'enter:execute(vim {} > /dev/tty)'
 }

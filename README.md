@@ -18,7 +18,7 @@ PlugInstall 安装插件
 git clone https://github.com/rupa/z.git
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+~/.fzf/install 全部yes
 
 
 软连接：
@@ -46,3 +46,4 @@ vim中输入:CocCommand workspace.showOutput，选择clangd的窗口
 或者vim中输入:CocDiagnostics
 如果想要查看更为详细的clangd log，需要在~/.vim/coc-settings.json中设置--log=verbose
 
+vim --startuptime vim.log 查看vimlog看启动时间定为卡顿问题

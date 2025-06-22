@@ -4,8 +4,13 @@
         "command": "clangd",
         "args": [
               "--compile-commands-dir=/data/home/harleyhuang/QQMail",
-              "--pch-storage=disk",
-              "--j=3"
+              // "--pch-storage=disk",
+              "--j=3",
+              "--malloc-trim",
+              "--pch-storage=memory",
+              "--background-index",
+              "--background-index-priority=background"
+              // "--log=verbose"
         ],
         "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
         "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]

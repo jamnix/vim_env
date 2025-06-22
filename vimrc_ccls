@@ -361,8 +361,7 @@ command! -bang -nargs=* Rgp
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({
-  \     'dir': expand('%:p:h'),
-  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down --wrap'
+  \     'dir': expand('%:p:h')
   \   }), <bang>0)
 
 " 搜索内容 fl
@@ -370,8 +369,7 @@ command! -bang -nargs=* RGp
   \ call fzf#vim#grep2(
   \   'rg --column --line-number --no-heading --color=always --smart-case', <q-args>, 1,
   \   fzf#vim#with_preview({
-  \     'dir': expand('%:p:h'),
-  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down --wrap'
+  \     'dir': expand('%:p:h')
   \   }), <bang>0)
 
 " 搜索内容 fk
@@ -379,7 +377,6 @@ command! -bang -nargs=* RGw
   \ call fzf#vim#grep2(
   \   'rg --column --line-number --no-heading --color=always --smart-case -w', <q-args>, 1,
   \   fzf#vim#with_preview({
-  \     'dir': expand('%:p:h'),
-  \     'options' : '--bind ctrl-u:preview-page-up,ctrl-d:preview-page-down --wrap'
+  \     'dir': expand('%:p:h')
   \   }), <bang>0)
 

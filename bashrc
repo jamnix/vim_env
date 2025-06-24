@@ -22,7 +22,7 @@ source /home/harleyhuang/z/z.sh
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 #export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --no-sort'
 #export FZF_DEFAULT_OPTS="--exact --no-mouse --height 70% --no-sort --layout=reverse --border --color --ansi --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
-export FZF_DEFAULT_OPTS="--exact --no-mouse --height 70% --no-sort --layout=reverse --border --color --ansi --cycle --wrap --preview-window=right:80%:wrap --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
+export FZF_DEFAULT_OPTS="--exact --no-mouse --height 70% --no-sort --layout=reverse --border --color --ansi --cycle --wrap --preview-window=right:60%:wrap --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 #export FZF_DEFAULT_COMMAND="find --exclude={.git,.idea,.vscode,.sass-cache,.ccls-cache,bazel-out} --type f"
 
@@ -31,6 +31,13 @@ export tored="perl -pe 's/(qza)/\e[1;31m$1\e[0m/g'"
 # 记得source ~/.bashrc
 export LANG=zh_CN.UTF8
 . ~/.profile_comm
+
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
 
 ff() {
   IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --preview="bat --color=always {}"))

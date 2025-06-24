@@ -22,9 +22,9 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'vim-scripts/a.vim'
 
 " ----- Working with Git ----------------------------------------------
-"Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " 使用vim-signify 来替换vim-gitgutter 因为 vim-gitgutter 太卡了
-Plug 'mhinz/vim-signify'
+"Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
@@ -67,7 +67,7 @@ Plug 'fatih/vim-go'
 
 "-------------------------------------------------------------------------
 "switching between companion files
-Plug 'jlanzarotta/bufexplorer'
+Plug 'jlanzarotta/bufexplorer', { 'tag' : '7.4.28' }
 
 Plug 'rhysd/vim-clang-format'
 
@@ -76,6 +76,8 @@ Plug 'junegunn/fzf.vim'
 "Plug '~/.fzf'
 
 call plug#end()
+
+source ~/vim_env/vim-z.vim
 
 "set rtp+=~/.fzf
 
@@ -148,6 +150,7 @@ set clipboard=unnamed
 " Set the colorscheme
 "colorscheme solarized
 colorscheme molokai
+highlight Visual ctermbg=245 " 调整 Visual 模式的高亮颜色
 
 " ---------------------- bling/vim-airline settings -----
 " Always show statusbar
@@ -186,18 +189,18 @@ let g:nerdtree_tabs_autofind = 1
 nmap <leader>m :TagbarToggle<CR>
 let g:tagbar_sort = 0
 " let tagbar refresh faster
-set updatetime=100
+set updatetime=500
 "let g:tagbar_ctags_bin = 'ctags' 
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 " ------------------------ mhinz/vim-signify settings -----
 " 只在有变更时显示符号
-let g:signify_sign_show_count = 1
+"let g:signify_sign_show_count = 1
 " 设置符号样式
-let g:signify_sign_add    = '+'
-let g:signify_sign_delete = '_'
-let g:signify_sign_change = '~'
+"let g:signify_sign_add    = '+'
+"let g:signify_sign_delete = '_'
+"let g:signify_sign_change = '~'
 
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
@@ -232,6 +235,7 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+let g:coc_diagnostic_delay = 2000
 nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)
 " Show all diagnostics.

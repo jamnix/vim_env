@@ -189,7 +189,7 @@ let g:nerdtree_tabs_autofind = 1
 nmap <leader>m :TagbarToggle<CR>
 let g:tagbar_sort = 0
 " let tagbar refresh faster
-set updatetime=500
+set updatetime=200
 "let g:tagbar_ctags_bin = 'ctags' 
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
@@ -212,7 +212,7 @@ augroup mydelimitMate
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
-" ------ 从anydev vimrc参考过来 以后研究有什么区别
+" 通用的补全配置
 "autocmd FileType json syntax match Comment +\/\/.\+$+
 "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -220,6 +220,7 @@ augroup END
 "inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 "autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
+" coc.nvim的补全配置
 autocmd FileType json syntax match Comment +\/\/.\+$+
 " 补全选项 completeopt
 inoremap <silent><expr> <TAB>
@@ -296,6 +297,7 @@ nmap <leader>no :set wrapscan<CR>
 nmap <leader>nc :set nowrapscan<CR>
 "nmap <C-j> <C-d>
 
+"  在打开文件后自动跳转到上次编辑的位置
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |  exe "normal! g'\"" | endif
 
 

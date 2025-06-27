@@ -22,7 +22,7 @@ source /home/harleyhuang/z/z.sh
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 #export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --no-sort'
 #export FZF_DEFAULT_OPTS="--exact --no-mouse --height 70% --no-sort --layout=reverse --border --color --ansi --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
-export FZF_DEFAULT_OPTS="--exact --no-mouse --height 70% --no-sort --layout=reverse --border --color --ansi --cycle --wrap --preview-window=right:60%:wrap --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
+export FZF_DEFAULT_OPTS="--exact --no-mouse --height 70% --no-sort --layout=reverse --border --color --ansi --cycle --wrap --preview-window=right:60%:wrap --bind 'ctrl-h:preview-half-page-up,ctrl-l:preview-half-page-down'"
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 #export FZF_DEFAULT_COMMAND="find --exclude={.git,.idea,.vscode,.sass-cache,.ccls-cache,bazel-out} --type f"
 
@@ -55,7 +55,6 @@ fl() {
     return 1
   fi
 
-  # 占用了 ctrl-u 所以不能用ctrl-u清理输入
   rg --files-with-matches --no-messages --smart-case "$1" | \
   fzf --preview "bat --style=numbers --color=always {} | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || cat {}" \
       --bind 'enter:execute(vim {} > /dev/tty)'
@@ -67,7 +66,6 @@ fk() {
     return 1
   fi
 
-  # 占用了 ctrl-u 所以不能用ctrl-u清理输入
   rg --files-with-matches --no-messages --smart-case -w "$1" | \
   fzf --preview "rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 -w '$1' {} || bat --style=numbers --color=always {}" \
       --bind 'enter:execute(vim {} > /dev/tty)'

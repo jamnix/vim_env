@@ -127,10 +127,10 @@ set fencs=utf8,gbk,gb2312,gb18030,cp936
 
 " ---------------------- derekwyatt/vim-fswitch ------------
 " *.cpp 和 *.h 间切换
-nmap <silent> <Leader>sw :AS<cr>
+"nmap <silent> <Leader>sw :AS<cr>
 
 " ------------system clipboard -----------
-set clipboard=unnamed
+"set clipboard=unnamed
 "nmap <Leader>y "*y"<cr>
 "vmap <Leader>y "*y"<cr>
 "nmap <Leader>p "*p"<cr>  leader p 已经使用了
@@ -288,13 +288,14 @@ endfunction
 "autocmd CursorHold * silent call CocActionAsync('highlight')
 
 nmap <leader>v :vs <C-R>=expand("<cfile>")<CR><CR>
-nmap <leader>p :echo expand('%:p')<CR>
+"nmap <leader>p :echo expand('%:p')<CR>
 nmap <leader>ss :mksession! /tmp/.session.vim.<C-R>=expand('%:t')<CR><CR>
 nmap <leader>kk :source /tmp/.session.vim<CR>
-nmap <leader>vm :vs /data/mm64/harleyhuang/QQMail/mmproto/csproto/finder<CR>
-nmap <leader>vg :vs /data/mm64/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>
-nmap <leader>no :set wrapscan<CR>
-nmap <leader>nc :set nowrapscan<CR>
+nmap <leader>gm :vs /data/home/harleyhuang/QQMail/mmproto/csproto/finder<CR>
+nmap <leader>gg :vs /data/home/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>
+"避免<leader>n 需要等待几毫秒 这里先注释这个搜索跳转时是否从头再来的设置快捷键
+"nmap <leader>no :set wrapscan<CR>
+"nmap <leader>nc :set nowrapscan<CR>
 "nmap <C-j> <C-d>
 
 "  在打开文件后自动跳转到上次编辑的位置
@@ -338,8 +339,9 @@ noremap <leader>fh :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F --heading -e
 noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F --heading -e %s ", expand("<cword>"))<CR>
 
 " recall last search. If the result window is closed, reopen it.
-noremap <leader>go :<C-U>Leaderf! rg --recall<CR>
-noremap <leader>gc :<C-U>Leaderf! rg --recall<CR>:q<CR>
+" 很少用 先注释
+"noremap <leader>go :<C-U>Leaderf! rg --recall<CR>
+"noremap <leader>gc :<C-U>Leaderf! rg --recall<CR>:q<CR>
 
 "解决coc.nvim大文件卡死状况
 let g:trigger_size = 0.5 * 1048576
@@ -386,3 +388,81 @@ command! -bang -nargs=* RGw
   \     'dir': expand('%:p:h')
   \   }), <bang>0)
 
+
+" =============================================================================
+" 简单临时文件剪切板
+" =============================================================================
+
+let g:temp_clipboard_file = '/tmp/vim_clipboard.txt'
+
+" 复制文本到临时文件
+function! TempCopy() range
+    if visualmode() != ''
+        " 可视模式：复制选中内容
+        let l:text = join(getline(a:firstline, a:lastline), "\n")
+    else
+        " 普通模式：复制当前行
+        let l:text = getline('.')
+    endif
+
+    call writefile([l:text], g:temp_clipboard_file)
+    "echo 'Copied: ' . (len(l:text) > 50 ? l:text[:47] . '...' : l:text)
+    echo 'TempCopy Copied!'
+endfunction
+
+" 复制当前行
+function! TempCopyLine()
+    let l:text = getline('.')
+    call writefile([l:text], g:temp_clipboard_file)
+    echo 'Copied line: ' . (len(l:text) > 50 ? l:text[:47] . '...' : l:text)
+endfunction
+
+" 复制当前文件路径
+function! TempCopyPath()
+    let l:path = expand('%:p')
+    call writefile([l:path], g:temp_clipboard_file)
+    echo l:path
+endfunction
+
+" 从临时文件粘贴
+function! TempPaste()
+    if filereadable(g:temp_clipboard_file)
+        let l:lines = readfile(g:temp_clipboard_file)
+        if len(l:lines) > 0
+            put =l:lines[0]
+        else
+            echo 'Temp clipboard is empty'
+        endif
+    else
+        echo 'Temp clipboard file not found'
+    endif
+endfunction
+
+" 用vim的vs命令打开复制的内容
+function! TempOpenWithVSplit()
+    if filereadable(g:temp_clipboard_file)
+        let l:lines = readfile(g:temp_clipboard_file)
+        if len(l:lines) > 0
+            let l:content = l:lines[0]
+            execute 'vs ' . fnameescape(l:content)
+        else
+            echo 'Temp clipboard is empty'
+        endif
+    else
+        echo 'Temp clipboard file not found'
+    endif
+endfunction
+
+" 命令
+command! -range TC <line1>,<line2>call TempCopy()
+command! TCL call TempCopyLine()
+command! TCP call TempCopyPath()
+command! TP call TempPaste()
+command! TVS call TempOpenWithVSplit()
+
+" 快捷键
+vnoremap <leader>y :TC<CR>
+nnoremap <leader>yy :TCL<CR>
+nnoremap <leader>yp :TCP<CR>
+nnoremap <leader>p :TP<CR>
+nnoremap <leader>gp :TVS<CR>

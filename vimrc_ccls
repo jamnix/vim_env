@@ -290,7 +290,21 @@ endfunction
 nmap <leader>v :vs <C-R>=expand("<cfile>")<CR><CR>
 "nmap <leader>p :echo expand('%:p')<CR>
 nmap <leader>ss :mksession! /tmp/.session.vim.<C-R>=expand('%:t')<CR><CR>
-nmap <leader>kk :source /tmp/.session.vim<CR>
+"nmap <leader>kk :source /tmp/.session.vim<CR>
+" 自动 source 最近的 session 文件
+function! SourceLatestSession()
+  let files = split(glob('/tmp/.session.vim.*'), "\n")
+  if empty(files)
+      echo "No session files found!"
+      return
+  endif
+  " 按修改时间排序，取最新
+  let files = sort(files, {a, b -> getftime(b) - getftime(a)})
+  let latest = files[0]
+  execute 'source' fnameescape(latest)
+  echo "Sourced: " . latest
+endfunction
+nmap <leader>kk :call SourceLatestSession()<CR>
 nmap <leader>gm :vs /data/home/harleyhuang/QQMail/mmproto/csproto/finder<CR>
 nmap <leader>gg :vs /data/home/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>
 "避免<leader>n 需要等待几毫秒 这里先注释这个搜索跳转时是否从头再来的设置快捷键

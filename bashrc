@@ -15,6 +15,7 @@ export opt="--gcc-version=gcc7  --os-name=tlinux2 --use-branch=mm3rd2/gperftools
 export clang_opt="--env-name=weixin_clang --clang --use-branch=mm3rd2/gperftools:origin/gperftools-2.0-no-tcmalloc"
 export docker_opt="--svn-update --no-patch"
 export personal="--personal-host"
+export to="-t mmnewlifelogicsvrshrdma3-1"
 #export VIMRUNTIME="$HOME/bin/share/vim/vim90"
 
 source /home/harleyhuang/z/z.sh 

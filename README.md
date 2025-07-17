@@ -21,6 +21,9 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install 全部yes
 
 sudo yum install ripgrep
+sudo yum install bat
+sudo yum install cloc
+curl -sL https://mirrors.tencent.com/repository/generic/gongfeng-copilot/vim/install.sh | sh
 
 软连接：
 /home/harleyhuang/.vim/coc-settings.json -> ../vim_env/coc-settings.json.ccls   // 由于clang太卡了所以切会到ccls了

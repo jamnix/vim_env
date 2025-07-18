@@ -305,6 +305,7 @@ function! SourceLatestSession()
   echo "Sourced: " . latest
 endfunction
 nmap <leader>kk :call SourceLatestSession()<CR>
+nmap <leader>kc :source /tmp/.session.vim_coredump<CR>
 nmap <leader>gm :vs /data/home/harleyhuang/QQMail/mmproto/csproto/finder<CR>
 nmap <leader>gg :vs /data/home/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>
 "避免<leader>n 需要等待几毫秒 这里先注释这个搜索跳转时是否从头再来的设置快捷键
@@ -321,6 +322,7 @@ map <leader>h <F1>
 map <leader>w :set wrap<CR>
 
 let g:Lf_ShortcutF = "<C-P>"
+let g:Lf_WindowPosition = 'popup'
 let g:Lf_HideHelp = 1
 let g:Lf_WorkingDirectoryMode = 'f'
 let g:Lf_RootMarkers = ['.git']
@@ -374,12 +376,18 @@ augroup hugefile
 augroup END
 
 let g:fzf_preview_window = ['right:50%:wrap']
-nnoremap <Leader>ff :Files %:p:h<CR>
+function! s:FilesWithSession()
+  execute 'mksession! /tmp/.session.vim_coredump'
+  execute 'Files ' . expand('%:p:h')
+endfunction
+nnoremap <Leader>ff :call <SID>FilesWithSession()<CR>
+"nnoremap <Leader>ff :Files %:p:h<CR>
 nnoremap <Leader>fl :RGp<CR>
 nnoremap <Leader>fk :RGw<CR>
 
 " 搜索文件和内容  无快捷键
 command! -bang -nargs=* Rgp
+  \ execute 'mksession! /tmp/.session.vim_coredump' |
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({
@@ -388,6 +396,7 @@ command! -bang -nargs=* Rgp
 
 " 搜索内容 fl
 command! -bang -nargs=* RGp
+  \ execute 'mksession! /tmp/.session.vim_coredump' |
   \ call fzf#vim#grep2(
   \   'rg --column --line-number --no-heading --color=always --smart-case', <q-args>, 1,
   \   fzf#vim#with_preview({
@@ -396,6 +405,7 @@ command! -bang -nargs=* RGp
 
 " 搜索内容 fk
 command! -bang -nargs=* RGw
+  \ execute 'mksession! /tmp/.session.vim_coredump' |
   \ call fzf#vim#grep2(
   \   'rg --column --line-number --no-heading --color=always --smart-case -w', <q-args>, 1,
   \   fzf#vim#with_preview({

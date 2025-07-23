@@ -22,7 +22,7 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'vim-scripts/a.vim'
 
 " ----- Working with Git ----------------------------------------------
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 " 使用vim-signify 来替换vim-gitgutter 因为 vim-gitgutter 太卡了
 "Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
@@ -359,21 +359,6 @@ noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F 
 "noremap <leader>go :<C-U>Leaderf! rg --recall<CR>
 "noremap <leader>gc :<C-U>Leaderf! rg --recall<CR>:q<CR>
 
-"解决coc.nvim大文件卡死状况
-let g:trigger_size = 0.5 * 1048576
-
-augroup hugefile
-  autocmd!
-  autocmd BufReadPre *
-        \ let size = getfsize(expand('<afile>')) |
-        \ if (size > g:trigger_size) || (size == -2) |
-        \   echohl WarningMsg | echomsg 'WARNING: altering options for this huge file!' | echohl None |
-        \   exec 'CocDisable' |
-        \ else |
-        \   exec 'CocEnable' |
-        \ endif |
-        \ unlet size
-augroup END
 
 let g:fzf_preview_window = ['right:50%:wrap']
 function! s:FilesWithSession()
@@ -490,3 +475,12 @@ nnoremap <leader>yy :TCL<CR>
 nnoremap <leader>yp :TCP<CR>
 nnoremap <leader>p :TP<CR>
 nnoremap <leader>gp :TVS<CR>
+
+augroup CocNetrwFix
+  autocmd!
+  " 在进入netrw缓冲区时禁用Coc
+  autocmd FileType netrw if exists(':CocDisable') | execute 'CocDisable' | endif
+  
+  " 在离开netrw缓冲区时重新启用Coc
+  autocmd BufLeave * if &filetype == 'netrw' && exists(':CocEnable') | execute 'CocEnable' | endif
+augroup END

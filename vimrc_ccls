@@ -369,6 +369,7 @@ nnoremap <Leader>ff :call <SID>FilesWithSession()<CR>
 "nnoremap <Leader>ff :Files %:p:h<CR>
 nnoremap <Leader>fl :RGp<CR>
 nnoremap <Leader>fk :RGw<CR>
+nnoremap <leader>fb :<C-U>Leaderf rg --current-buffer --regexMode --smart-case<CR>
 
 " 搜索文件和内容  无快捷键
 command! -bang -nargs=* Rgp
@@ -397,6 +398,8 @@ command! -bang -nargs=* RGw
   \     'dir': expand('%:p:h')
   \   }), <bang>0)
 
+" 在当前文件中搜索
+"command! -bang BLines call fzf#vim#buffer_lines(<q-args>, <bang>0)
 
 " =============================================================================
 " 简单临时文件剪切板
@@ -476,11 +479,14 @@ nnoremap <leader>yp :TCP<CR>
 nnoremap <leader>p :TP<CR>
 nnoremap <leader>gp :TVS<CR>
 
-augroup CocNetrwFix
-  autocmd!
+autocmd FileType netrw let b:coc_enabled = 0
+"autocmd BufEnter * if &filetype == 'netrw' | let b:coc_enabled = 0 | endif
+
+"augroup CocNetrwFix
+"  autocmd!
   " 在进入netrw缓冲区时禁用Coc
-  autocmd FileType netrw if exists(':CocDisable') | execute 'CocDisable' | endif
+"  autocmd FileType netrw if exists(':CocDisable') | execute 'CocDisable' | endif
   
   " 在离开netrw缓冲区时重新启用Coc
-  autocmd BufLeave * if &filetype == 'netrw' && exists(':CocEnable') | execute 'CocEnable' | endif
-augroup END
+"  autocmd BufLeave * if &filetype == 'netrw' && exists(':CocEnable') | execute 'CocEnable' | endif
+"augroup END

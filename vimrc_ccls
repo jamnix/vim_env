@@ -349,10 +349,10 @@ let g:Lf_DefaultExternalTool='rg'
 
 " search word under cursor literally in all listed buffers
 "noremap <C-G> :<C-U><C-R>=printf("Leaderf! rg -F --all-buffers -e %s ", expand("<cword>"))<CR>
-noremap <leader>ll :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --current-buffer --heading -e %s ", expand("<cword>"))<CR>
-"noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=c -F --heading -e %s ", expand("<cword>"))<CR><CR>
-noremap <leader>fh :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F --heading -e %s %s ", expand("<cword>"), expand("%:p:h"))<CR>
-noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F --heading -e %s ", expand("<cword>"))<CR>
+"noremap <leader>xx :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --current-buffer --heading -e %s ", expand("<cword>"))<CR>
+"noremap <leader>xx :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=c -F --heading -e %s ", expand("<cword>"))<CR><CR>
+"noremap <leader>xx :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w -F --heading -e %s %s ", expand("<cword>"), expand("%:p:h"))<CR>
+"noremap <leader>xx :<C-U><C-R>=printf("Leaderf! rg --stayOpen -w --wd-mode=f -F --heading -e %s ", expand("<cword>"))<CR>
 
 " recall last search. If the result window is closed, reopen it.
 " 很少用 先注释
@@ -368,7 +368,7 @@ nnoremap <Leader>ff :call <SID>FilesWithSession()<CR>
 "nnoremap <Leader>ff :Files %:p:h<CR>
 nnoremap <Leader>fl :RGp<CR>
 nnoremap <Leader>fk :RGw<CR>
-nnoremap <leader>fb :<C-U>Leaderf rg --current-buffer --regexMode --smart-case<CR>
+nnoremap <leader>fh :<C-U>Leaderf rg --current-buffer --regexMode --smart-case<CR>
 
 " 搜索文件和内容  无快捷键
 command! -bang -nargs=* Rgp

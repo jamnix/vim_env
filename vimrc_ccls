@@ -150,7 +150,9 @@ set fencs=utf8,gbk,gb2312,gb18030,cp936
 " Set the colorscheme
 "colorscheme solarized
 colorscheme molokai
-highlight Visual ctermbg=245 " 调整 Visual 模式的高亮颜色
+highlight Visual ctermbg=Green " 调整 Visual 模式的高亮颜色
+highlight TagbarHighlight ctermbg=Green
+highlight WarningMsg ctermfg=Yellow
 
 " ---------------------- bling/vim-airline settings -----
 " Always show statusbar
@@ -305,7 +307,6 @@ function! SourceLatestSession()
   echo "Sourced: " . latest
 endfunction
 nmap <leader>kk :call SourceLatestSession()<CR>
-nmap <leader>kc :source /tmp/.session.vim_coredump<CR>
 nmap <leader>gm :vs /data/home/harleyhuang/QQMail/mmproto/csproto/finder<CR>
 nmap <leader>gg :vs /data/home/harleyhuang/QQMail/mmgateway/public/proto/mmfinder<CR>
 "避免<leader>n 需要等待几毫秒 这里先注释这个搜索跳转时是否从头再来的设置快捷键
@@ -360,19 +361,13 @@ let g:Lf_DefaultExternalTool='rg'
 "noremap <leader>gc :<C-U>Leaderf! rg --recall<CR>:q<CR>
 
 let g:fzf_preview_window = ['right:50%:wrap']
-function! s:FilesWithSession()
-  execute 'mksession! /tmp/.session.vim_coredump'
-  execute 'Files ' . expand('%:p:h')
-endfunction
-nnoremap <Leader>ff :call <SID>FilesWithSession()<CR>
-"nnoremap <Leader>ff :Files %:p:h<CR>
+nnoremap <Leader>ff :Files %:p:h<CR>
 nnoremap <Leader>fl :RGp<CR>
 nnoremap <Leader>fk :RGw<CR>
 nnoremap <leader>fh :<C-U>Leaderf rg --current-buffer --regexMode --smart-case<CR>
 
 " 搜索文件和内容  无快捷键
 command! -bang -nargs=* Rgp
-  \ execute 'mksession! /tmp/.session.vim_coredump' |
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({
@@ -381,7 +376,6 @@ command! -bang -nargs=* Rgp
 
 " 搜索内容 fl
 command! -bang -nargs=* RGp
-  \ execute 'mksession! /tmp/.session.vim_coredump' |
   \ call fzf#vim#grep2(
   \   'rg --column --line-number --no-heading --color=always --smart-case', <q-args>, 1,
   \   fzf#vim#with_preview({
@@ -390,7 +384,6 @@ command! -bang -nargs=* RGp
 
 " 搜索内容 fk
 command! -bang -nargs=* RGw
-  \ execute 'mksession! /tmp/.session.vim_coredump' |
   \ call fzf#vim#grep2(
   \   'rg --column --line-number --no-heading --color=always --smart-case -w', <q-args>, 1,
   \   fzf#vim#with_preview({

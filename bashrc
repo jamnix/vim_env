@@ -41,6 +41,7 @@ fd() {
 }
 
 ff() {
+  local files
   IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --preview="bat --color=always {}"))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
